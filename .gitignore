@@ -1,0 +1,6 @@
+/nbproject
+/composer.lock
+/vendor
+/src/generator/models
+/config.php
+/.idea
