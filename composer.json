@@ -1,7 +1,7 @@
 {
-    "name": "afosto/api-client",
-    "version": "1.0.0",
+    "name": "afosto/api-client",,
     "description": "Afosto API client",
+    "type": "package",
     "keywords": [
         "afosto",
         "api",
