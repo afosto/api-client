@@ -16,7 +16,7 @@ class ErrorHandler extends PrettyPageHandler {
      */
     public function __construct() {
         parent::__construct();
-        if (defined('EDITOR')) {
+        if (defined('EDITOR') && EDITOR !== null) {
             $this->setEditor(EDITOR);
         }
     }

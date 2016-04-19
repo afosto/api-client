@@ -20,7 +20,7 @@ define('REDIRECT_URI', '');
  * - xdebug
  * - phpstorm
  */
-define('EDITOR', '');
+define('EDITOR', null);
 
 /**
  * Default pagination page size when pagination through models

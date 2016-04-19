@@ -92,6 +92,10 @@ class App {
         if (class_exists(Whoops::class)) {
             ErrorHandler::register();
         }
+        //Set the accessToken from the cache if it is available
+        if ($this->storage->get('token') !== false) {
+            $this->_accessToken = $this->storage->get('token');
+        }
     }
 
     /**
@@ -157,28 +161,26 @@ class App {
      * Returns true when accessToken is still valid
      * @return boolean
      */
-    public function isConnected() {
-        if ($this->storage->get('token') !== false) {
-            $this->_accessToken = $this->storage->get('token');
-            if ($this->_accessToken->getExpires() === null || !$this->_accessToken->hasExpired()) {
-                return true;
-            }
+    public function hasToken() {
+        if ($this->_accessToken === null || ($this->_accessToken->getExpires() !== null && $this->_accessToken->hasExpired())) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
-     * Set the accessToken based on the authorization code
+     * Use this function to set the accessToken based on the authorization code 
+     * that is received from Afosto when the redirectUrl is called
      * @param $authorization_code
      * @throws LoginException
      */
-    public function login($authorization_code) {
+    public function authorize($authorization_code) {
         try {
             // Try to get an access token using the authorization code grant.
             $tokenProvider = $this->_getProvider()->getAccessToken('authorization_code', [
                 'code' => $authorization_code
             ]);
-            $this->setAccesToken($tokenProvider->getToken());
+            $this->login($tokenProvider->getToken());
         } catch (\Exception $e) {
             throw new LoginException('Login failed: authorization code invalid');
         }
@@ -188,7 +190,7 @@ class App {
      * Set the accessToken
      * @param string $accessToken
      */
-    public function setAccesToken($accessToken) {
+    public function login($accessToken) {
         $this->_accessToken = new AccessToken(['access_token' => $accessToken]);
         $this->storage->set('token', $this->_accessToken);
     }
@@ -220,6 +222,14 @@ class App {
             $this->_rateLimit = RateLimit::load();
         }
         return $this->_rateLimit;
+    }
+    
+    /**
+     * Returns the accessToken
+     * @return string
+     */
+    public function getAccessToken() {
+        return $this->_accessToken->getToken();
     }
 
     /**
