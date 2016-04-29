@@ -3,6 +3,7 @@
 namespace Afosto\ApiClient\Models\_Base\PriceGroups;
 
 use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -29,11 +30,13 @@ use Afosto\ApiClient\Components\Models\Model;
  * 
  * @property integer $id
  * @property string $name
- *
+ * 
  * @property \Afosto\ApiClient\Models\Currencies\Currency $currency
  * @property \Afosto\ApiClient\Models\TaxClasses\TaxClass[] $tax_classes
 **/
 class BasePriceGroup extends Model {
+
+    use ModelTrait;
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -63,7 +66,7 @@ class BasePriceGroup extends Model {
      */
     public function getTypes() {
         return [
-            ['id, name, iso, ','required'],
+            ['id, name, currency, ','required'],
             ['id','integer'],
             ['name','string'],
         ];

@@ -32,7 +32,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property number $cost
  * @property number $amount
  *
- * @property \Afosto\ApiClient\Models\PaymentMethods\PaymentMethod[] $method
+ * @property \Afosto\ApiClient\Models\PaymentMethods\PaymentMethod $method
 **/
 class BasePaymentMethods extends Model {
 
@@ -55,7 +55,7 @@ class BasePaymentMethods extends Model {
      */
     public function getRelations() {
         return [
-            'method' => ['PaymentMethodRel', 'many'],
+            'method' => ['PaymentMethodRel', 'one'],
         ];
     }
 

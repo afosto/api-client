@@ -9,10 +9,10 @@
         "v2"
     ],
     "homepage": "https://afosto.com",
-    "license": "Apache v2",
+    "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Afosteam",
+            "name": "Afosto Team",
             "homepage": "https://afosto.com"
         }
     ],

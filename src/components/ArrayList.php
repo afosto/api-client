@@ -56,7 +56,7 @@ class ArrayList implements \ArrayAccess, \Iterator, \Countable {
         if ($offset === null) {
             $offset = count($this->_data);
         } else {
-            throw new ModelException('Use only NULL values to insert data');
+            throw new ModelException('Use only NULL offsets are allowed to insert data');
         }
         $this->_data[$offset] = $value;
     }
@@ -142,5 +142,13 @@ class ArrayList implements \ArrayAccess, \Iterator, \Countable {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Reset the values
+     */
+    public function reset() {
+        $this->_data = [];
+        $this->_key = 0;
     }
 }

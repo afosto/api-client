@@ -32,6 +32,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $billed_at
  * @property string $payment_date
  * @property boolean $is_notified
+ * @property integer $status_id
  * @property string $status
  * @property number $total_paid
  *
@@ -51,6 +52,7 @@ class BaseBilling extends Model {
             'billed_at',
             'payment_date',
             'is_notified',
+            'status_id',
             'status',
             'total_paid',
         ];
@@ -74,7 +76,7 @@ class BaseBilling extends Model {
     public function getTypes() {
         return [
             ['billed_at, payment_date, is_notified, status, total_paid, address','required'],
-            ['id','integer'],
+            ['id, status_id','integer'],
             ['number, billed_at, payment_date, status','string'],
             ['is_notified','boolean'],
             ['total_paid','number'],

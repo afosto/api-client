@@ -27,7 +27,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @property integer $shipping_id
+ * @property integer $shipment_id
  * @property integer $credit
  *
  * @property \Afosto\ApiClient\Models\Warehouses\Warehouse $warehouse
@@ -40,7 +40,7 @@ class BaseMutation extends Model {
      */
     public function getAttributes() {
         return [
-            'shipping_id',
+            'shipment_id',
             'credit',
         ];
     }
@@ -61,8 +61,8 @@ class BaseMutation extends Model {
      */
     public function getTypes() {
         return [
-            ['shipping_id, credit, warehouse','required'],
-            ['shipping_id, credit','integer'],
+            ['shipment_id, credit, warehouse','required'],
+            ['shipment_id, credit','integer'],
         ];
     }
 

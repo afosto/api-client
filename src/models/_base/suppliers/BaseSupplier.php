@@ -62,7 +62,7 @@ class BaseSupplier extends Model {
      */
     public function getTypes() {
         return [
-            ['','required'],
+            ['name','required'],
             ['id','integer'],
             ['name','string'],
         ];

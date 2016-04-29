@@ -13,7 +13,7 @@ use Afosto\ApiClient\Models\_Base\Addresses\BaseAddress;
  */
 class Address extends BaseAddress {
 
-        public function getAttributes() {
+    public function getAttributes() {
         return array_merge([
             'email'
         ], parent::getAttributes());

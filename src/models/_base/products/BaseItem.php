@@ -28,7 +28,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * limitations under the License.
  * 
  * @property integer $id
- * @property integer $ean
+ * @property string $ean
  * @property string $sku
  * @property string $created_at
  * @property string $updated_at
@@ -71,9 +71,9 @@ class BaseItem extends Model {
      */
     public function getTypes() {
         return [
-            ['ean, created_at, updated_at, inventory, price_groups, options, ','required'],
-            ['id, ean','integer'],
-            ['sku, created_at, updated_at','string'],
+            ['ean, created_at, updated_at, inventory, prices, options, ','required'],
+            ['id','integer'],
+            ['ean, sku, created_at, updated_at','string'],
         ];
     }
 

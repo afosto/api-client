@@ -63,7 +63,7 @@ class BaseSetting extends Model {
      */
     public function getTypes() {
         return [
-            ['external_service, position, slug, menu_items','required'],
+            ['external_service, position, menu_items','required'],
             ['position','integer'],
             ['slug','string'],
         ];

@@ -12,10 +12,4 @@ use Afosto\ApiClient\Models\_Base\Collections\BaseCollection;
  */
 class Collection extends BaseCollection {
     
-    public function getAttributes() {
-        return array_merge([
-            'created_at',
-            'updated_at'
-        ], parent::getAttributes());
-    }
 }

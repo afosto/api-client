@@ -86,7 +86,7 @@ class BaseProduct extends Model {
      */
     public function getTypes() {
         return [
-            ['is_tracking_inventory, created_at, updated_at, meta_groups, items, collections, settings','required'],
+            ['is_tracking_inventory, descriptors, items, collections, settings','required'],
             ['id, weight','integer'],
             ['cost','number'],
             ['is_tracking_inventory','boolean'],

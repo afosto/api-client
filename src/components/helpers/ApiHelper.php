@@ -40,12 +40,17 @@ class ApiHelper {
     /**
      * Used in single model queries
      */
-    const FIND = 'single';
+    const FIND = 'find';
 
     /**
      * Used in save model queries
      */
     const SAVE = 'post';
+    
+    /**
+     * Used to save existing models
+     */
+    const UPDATE = 'update';
 
     /**
      * Used to delete models
@@ -96,6 +101,9 @@ class ApiHelper {
                 break;
             case self::SAVE:
                 $method = 'POST';
+                break;
+            case self::UPDATE:
+                $method = 'PUT';
                 break;
             case self::DELETE:
                 $method = 'DELETE';

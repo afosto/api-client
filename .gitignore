@@ -3,4 +3,5 @@
 /vendor
 /src/generator/models
 /config.php
+/index.php
 /.idea

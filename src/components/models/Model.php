@@ -4,10 +4,8 @@ namespace Afosto\ApiClient\Components\Models;
 
 use Afosto\ApiClient\Components\Exceptions\ModelException;
 use Afosto\ApiClient\Components\Component;
-
 use Afosto\ApiClient\Components\ArrayList;
 use Afosto\ApiClient\Components\Helpers\ApiHelper;
-use Symfony\Component\VarDumper\VarDumper;
 
 abstract class Model extends Component {
 
@@ -57,7 +55,7 @@ abstract class Model extends Component {
      * @return mixed
      */
     public function __get($name) {
-        if (array_key_exists($name, $this->_attributes)) {
+        if ($this->_isAttribute($name)) {
             if ($this->_attributes[$name] instanceof Link) {
                 //Browse the API for the link
                 $this->_attributes[$name] = $this->_attributes[$name]->getLink();
@@ -68,12 +66,10 @@ abstract class Model extends Component {
                 }
             }
             return $this->_attributes[$name];
-        } else if (array_key_exists($name, $this->_relations)) {
-            if ($this->_relations[$name]->type == 'many') {
-                return array();
-            } else {
-                return null;
-            }
+        } else if ($this->_isRelation($name, 'many')) {
+            return array();
+        } else if ($this->_isRelation($name, 'one')) {
+            return null;
         } else if (array_key_exists($name, $this->getMapping())) {
             $mappedKey = $this->getMapping()[$name];
             return $this->$mappedKey;
@@ -103,23 +99,22 @@ abstract class Model extends Component {
      * @return bool|mixed
      */
     public function setAttribute($name, $value) {
-        if ($value === null || $name == '_links') {
+        if ($value == null || $name == '_links') {
             return true;
-        } else if (array_key_exists($name, $this->_relations) && $this->_relations[$name]->type == 'many') {
-            //Many relation
+        } else if ($this->_isRelation($name, 'many')) {
             $relation = $this->_relations[$name];
+            $this->_attributes[$name]->reset();
             foreach ($value as $data) {
                 $object = new $relation->classPath;
                 $object->setAttributes($data);
                 $this->_attributes[$name][] = $object;
             }
-        } else if (array_key_exists($name, $this->_relations) && $this->_relations[$name]->type == 'one') {
-            //Single relation
+        } else if ($this->_isRelation($name)) {
             $relation = $this->_relations[$name];
             $object = new $relation->classPath;
             $object->setAttributes($value);
             $this->_attributes[$name] = $object;
-        } else if (array_key_exists($name, $this->_attributes)) {
+        } else if ($this->_isAttribute($name)) {
             $this->_attributes[$name] = $value;
         } else if (array_key_exists($name, $this->getMapping())) {
             $mappedKey = $this->getMapping()[$name];
@@ -137,6 +132,10 @@ abstract class Model extends Component {
      * @throws ModelException
      */
     public function setAttributes($attributes) {
+        if (method_exists($attributes, 'getBody')) {
+            $attributes = $attributes->getBody();
+        }
+
         if (!is_array($attributes)) {
             throw new ModelException('Invalid attributes for [' . $this->getName() . ']');
         }
@@ -150,7 +149,7 @@ abstract class Model extends Component {
      * Validate the model
      * @throws ModelException
      */
-    public function validate() {        
+    public function validate() {
         foreach ($this->_attributes as $attribute => $value) {
             if (in_array('required', $this->getAttributeRules($attribute))) {
                 //Validate based on requirement
@@ -162,7 +161,6 @@ abstract class Model extends Component {
                     foreach ($value as $object) {
                         $object->validate();
                     }
-
                 } else if (is_null($value) || trim($value) == '') {
                     throw new ModelException("[$attribute] is required for [" . $this->getName() . "]");
                 }
@@ -181,13 +179,14 @@ abstract class Model extends Component {
                 foreach ($attribute as $objectKey => $object) {
                     $body[$key][$objectKey] = $object->getBody();
                 }
+            } else if ($attribute instanceof Link || $attribute instanceof Model) {
+                $body[$key] = $attribute->getBody();
             } else {
                 $body[$key] = ApiHelper::toArray($attribute);
             }
         }
         return $body;
     }
-
 
     /**
      * Get the rules for a given attribute
@@ -231,6 +230,29 @@ abstract class Model extends Component {
             }
             $this->_relations[$attribute] = $relation;
         }
+    }
+
+    /**
+     * Returns true if object is relation of given type
+     * @param string $name  attribute name
+     * @param string $type  one / many
+     * @return boolean
+     */
+    private function _isRelation($name, $type = 'one') {
+        if (array_key_exists($name, $this->_relations)) {
+            $relation = $this->_relations[$name];
+            if ($relation->type == $type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if attribute exists
+     */
+    private function _isAttribute($name) {
+        return array_key_exists($name, $this->_attributes);
     }
 
 }

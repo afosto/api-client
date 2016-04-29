@@ -29,6 +29,7 @@ use Afosto\ApiClient\Components\ModelTrait;
  * limitations under the License.
  * 
  * @property integer $id
+ * @property integer $status_id
  * @property string $status
  * @property string $vat
  * @property boolean $is_notified
@@ -62,6 +63,7 @@ class BaseSale extends Model {
     public function getAttributes() {
         return [
             'id',
+            'status_id',
             'status',
             'vat',
             'is_notified',
@@ -101,7 +103,7 @@ class BaseSale extends Model {
     public function getTypes() {
         return [
             ['status, subtotal_gross, total, tax_total, billing, items','required'],
-            ['id','integer'],
+            ['id, status_id','integer'],
             ['status, vat, billing_number, order_number, ordered_at, created_at, updated_at','string'],
             ['is_notified','boolean'],
             ['payment_costs_gross, shipping_costs_gross, discount_total_gross, subtotal_gross, tax_total, total','number'],

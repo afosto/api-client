@@ -68,27 +68,6 @@ class Api extends Component {
     }
 
     /**
-     * Adds headers to the future request. Headers need to be set before each
-     * request, as they are reset after each request
-     * @param array $headers
-     */
-    public function addHeaders(array $headers) {
-        if (!isset($this->_options['headers'])) {
-            $this->_options['headers'] = $headers;
-        } else {
-            $this->_options = array_merge($this->_options['headers'], $headers);
-        }
-    }
-
-    /**
-     * Set the body for the request
-     * @param array $body
-     */
-    public function setBody($body) {
-        $this->_options['body'] = json_encode($body);
-    }
-
-    /**
      * Run a request on the api
      * @param $queryType
      * @return mixed
@@ -116,15 +95,14 @@ class Api extends Component {
     protected function beforeRequest($queryType) {
         //Reset the options
         $this->_owner->beforeRequest();
-        if ($queryType == ApiHelper::SAVE) {
-            //$this->_owner->validate();
-            $this->setBody($this->_owner->getBody());
+        if ($queryType == ApiHelper::SAVE || ApiHelper::UPDATE) {
+            $this->_setBody($this->_owner->getBody());
         }
         if (App::getInstance()->getRateLimit()->hasExceeded()) {
             throw new RateLimitException('Out of limits');
         }
         if ($queryType == ApiHelper::PAGE) {
-            $this->addHeaders([
+            $this->_addHeaders([
                 'page' => $this->_owner->getPagination()->page,
                 'pagesize' => $this->_owner->getPagination()->pageSize
             ]);
@@ -148,7 +126,28 @@ class Api extends Component {
         $this->_options = [];
         $this->_updateLog();
     }
+    
+    /**
+     * Set the body for the request
+     * @param array $body
+     */
+    private function _setBody($body) {
+        $this->_options['body'] = json_encode($body);
+    }
 
+    /**
+     * Adds headers to the future request. Headers need to be set before each
+     * request, as they are reset after each request
+     * @param array $headers
+     */
+    private function _addHeaders(array $headers) {
+        if (!isset($this->_options['headers'])) {
+            $this->_options['headers'] = $headers;
+        } else {
+            $this->_options = array_merge($this->_options['headers'], $headers);
+        }
+    }
+    
     /**
      * Return the uri for this query type
      * @param string $queryType
@@ -159,6 +158,7 @@ class Api extends Component {
         switch ($queryType) {
             case ApiHelper::PAGE:
             case ApiHelper::SAVE:
+            case ApiHelper::UPDATE;
                 $path = null;
                 break;
             case ApiHelper::COUNT:

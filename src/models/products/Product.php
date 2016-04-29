@@ -14,18 +14,5 @@ use Afosto\ApiClient\Components\WebhookTrait;
 class Product extends BaseProduct {
     
     use WebhookTrait;
-
-     /**
-     * Array with types, rules
-     * @return array
-     */
-    public function getTypes() {
-        return [
-            ['is_tracking_inventory, descriptors, items, collections, settings','required'],
-            ['id, weight','integer'],
-            ['cost','number'],
-            ['is_tracking_inventory','boolean'],
-            ['created_at, updated_at','string'],
-        ];
-    }
+    
 }

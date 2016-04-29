@@ -33,8 +33,10 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $domain
  * @property string $description
  * @property boolean $is_active
- * @property boolean $test_mode
- * @property boolean $password_protected
+ * @property boolean $is_ssl
+ * @property boolean $is_test_mode
+ * @property boolean $is_password_protected
+ * @property boolean $is_setup_completed
  * @property boolean $completed
  * @property string $vat
  * @property string $created_at
@@ -60,8 +62,10 @@ class BaseExternalService extends Model {
             'domain',
             'description',
             'is_active',
-            'test_mode',
-            'password_protected',
+            'is_ssl',
+            'is_test_mode',
+            'is_password_protected',
+            'is_setup_completed',
             'completed',
             'vat',
             'created_at',
@@ -91,7 +95,7 @@ class BaseExternalService extends Model {
             ['id, name, description','required'],
             ['id','integer'],
             ['name, domain, description, vat, created_at, updated_at','string'],
-            ['is_active, test_mode, password_protected, completed','boolean'],
+            ['is_active, is_ssl, is_test_mode, is_password_protected, is_setup_completed, completed','boolean'],
         ];
     }
 

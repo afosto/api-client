@@ -96,6 +96,8 @@ trait ModelTrait {
     public function save() {
         if ($this->isNewRecord) {
             $result = $this->api->request(ApiHelper::SAVE);
+        } else {
+            $result = $this->api->request(ApiHelper::UPDATE);
         }
         $this->setAttributes($result);
     }

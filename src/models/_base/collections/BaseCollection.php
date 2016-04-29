@@ -32,6 +32,8 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $name
  * @property integer $level
  * @property integer $position
+ * @property string $created_at
+ * @property string $updated_at
  * 
  * @property Collection $parent
 **/
@@ -49,6 +51,8 @@ class BaseCollection extends Model {
             'name',
             'level',
             'position',
+            'created_at',
+            'updated_at',
         ];
     }
     
@@ -70,7 +74,7 @@ class BaseCollection extends Model {
         return [
             ['id, name','required'],
             ['id, level, position','integer'],
-            ['name','string'],
+            ['name, created_at, updated_at','string'],
         ];
     }
 
