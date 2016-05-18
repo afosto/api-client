@@ -203,6 +203,8 @@ class Api extends Component {
         $config = App::getInstance()->getClient()->getConfig();
         $log->options = array_merge_recursive(['headers' => $config['headers']], $this->_options);
         self::$_log[] = $log;
+        //Keep only the last three requests in the log
+        self::$_log = array_slice(self::$_log, -3);
     }
     
     /**
