@@ -5,7 +5,7 @@ namespace Afosto\ApiClient\Components;
 use Afosto\ApiClient\Components\Exceptions\ModelException;
 use Afosto\ApiClient\Components\Models\Model;
 
-class ArrayList implements \ArrayAccess, \Iterator, \Countable {
+class ArrayList implements \ArrayAccess, \Iterator, \Countable, \JsonSerializable {
 
     /**
      * Internal data object
@@ -150,5 +150,45 @@ class ArrayList implements \ArrayAccess, \Iterator, \Countable {
     public function reset() {
         $this->_data = [];
         $this->_key = 0;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return $this->getBody(true);
+    }
+
+    /**
+     * Return the contents of this list as regular PHP array of models.
+     *
+     * @param bool $convertObjects  If this is true, all models in the list will be converted to arrays as well.
+     * @return array
+     */
+    public function getBody($convertObjects = false)
+    {
+        if ($convertObjects) {
+            return array_map(function($model){
+                return $model->getBody();
+            }, $this->_data);
+        } else {
+            return $this->_data;
+        }
+    }
+
+    /**
+     * Alias of getBody()
+     *
+     * @param bool $convertObjects
+     * @return array
+     */
+    public function toArray($convertObjects = false)
+    {
+        return $this->getBody($convertObjects);
     }
 }
