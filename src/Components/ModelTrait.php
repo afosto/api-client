@@ -89,6 +89,21 @@ trait ModelTrait {
     public function findCount() {
         return Count::model()->setAttributes($this->api->request(ApiHelper::COUNT));
     }
+
+    /**
+     * Returns an array of models of up to $pageSize items
+     *
+     * Returns an array of models of up to $pageSize items. This function provides an easy way to access small
+     * collections. If a collection has more items, you can use findPage($page) to retrieve other pages or use the
+     * paginate() method to iterate over pages.
+     * 
+     * @param int $pageSize
+     * @return static[]
+     */
+    public function findAll($pageSize = null)
+    {
+        return $this->findPage(1, $pageSize);
+    }
     
     /**
      * Stores a model
