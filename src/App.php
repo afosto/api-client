@@ -196,11 +196,23 @@ class App {
     }
 
     /**
-     * Returns the client
+     * Returns the Guzzle client
+     *
      * @return Client
+     * @throws LoginException
      */
     public function getClient() {
         if ($this->_client === null) {
+            if (!$this->_accessToken) {
+                throw new LoginException(
+                    'The storage did not return a token. Please check your storage provider settings or sign in again'
+                );
+            }
+
+            if ($this->_accessToken->getExpires() !== null && $this->_accessToken->hasExpired()) {
+                throw new LoginException('The current auth token has expired');
+            }
+
             $this->_client = new Client([
                 'base_uri' => App::ENDPOINT . App::VERSION . '/',
                 'allow_redirects' => false,
