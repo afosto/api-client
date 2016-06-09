@@ -89,6 +89,10 @@ class App {
         $this->storage = $storage;
         $this->_clientId = $clientId;
         $this->_clientSecret = $clientSecret;
+
+	if(!defined('PAGE_SIZE')) {
+            define('PAGE_SIZE', 50);
+        }
         if (class_exists(Whoops::class)) {
             ErrorHandler::register();
         }
