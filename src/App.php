@@ -3,7 +3,7 @@
 namespace Afosto\ApiClient;
 
 use League\OAuth2\Client\Token\AccessToken;
-use GuzzleHttp\Client;
+use \GuzzleHttp\Client;
 use Afosto\ApiClient\Api\RateLimit;
 use Afosto\ApiClient\Api\Provider;
 use Afosto\ApiClient\Components\Storage\AbstractStorage;
@@ -90,9 +90,6 @@ class App {
         $this->_clientId = $clientId;
         $this->_clientSecret = $clientSecret;
 
-	if(!defined('PAGE_SIZE')) {
-            define('PAGE_SIZE', 50);
-        }
         if (class_exists(Whoops::class)) {
             ErrorHandler::register();
         }

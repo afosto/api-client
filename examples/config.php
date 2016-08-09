@@ -23,11 +23,6 @@ define('REDIRECT_URI', '');
 define('EDITOR', null);
 
 /**
- * Default pagination page size when pagination through models
- */
-define('PAGE_SIZE', 50);
-
-/**
  * Prefix for incomming webhooks (http://...), applied when using the
  * webhook getLink method
  */

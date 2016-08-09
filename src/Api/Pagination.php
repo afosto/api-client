@@ -12,6 +12,12 @@ use Afosto\ApiClient\App;
 class Pagination extends Component implements \Iterator, \Countable {
 
     /**
+     * The default page size
+     * @var integer
+     */
+    const PAGE_SIZE = 50;
+
+    /**
      * The current page
      * @var integer
      */
@@ -38,11 +44,11 @@ class Pagination extends Component implements \Iterator, \Countable {
 
     /**
      * Pagination constructor.
-     * @param Model|\Afosto\ApiClient\Resources\Model $owner
+     * @param Model|\Afosto\ApiClient\Components\Models\Model $owner
      * @param int $pageSize
-     * @throws \Afosto\ApiClient\Exceptions\ApiException
+     * @throws \Afosto\ApiClient\Components\Exceptions\ApiException
      */
-    public function __construct(Model $owner, $pageSize = PAGE_SIZE) {
+    public function __construct(Model $owner, $pageSize = self::PAGE_SIZE) {
         $this->_owner = $owner;
         $this->rewind();
         $this->setPageSize($pageSize);
@@ -57,7 +63,7 @@ class Pagination extends Component implements \Iterator, \Countable {
      */
     public function setPageSize($size) {
         if ($size === null || (int)$size == 0) {
-            $this->_pageSize = PAGE_SIZE;
+            $this->_pageSize = self::PAGE_SIZE;
         } else {
             $this->_pageSize = (int) $size;
         }
