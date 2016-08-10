@@ -94,13 +94,15 @@ abstract class Model extends Component implements JsonSerializable {
     }
 
     /**
-     * Set the attribute for the model
-     * @param $name
-     * @param $value
+     * Set an attribute on the model
+     *
+     * @param string $name The name of the attribute or relation to set
+     * @param mixed $value The value to set it to
+     *
      * @return bool|mixed
      */
     public function setAttribute($name, $value) {
-        if ($value == null || $name == '_links') {
+        if ($name == '_links') {
             return true;
         } else if ($this->_isRelation($name, 'many')) {
             $relation = $this->_relations[$name];
