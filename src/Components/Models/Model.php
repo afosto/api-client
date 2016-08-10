@@ -102,7 +102,7 @@ abstract class Model extends Component implements JsonSerializable {
      * @return bool|mixed
      */
     public function setAttribute($name, $value) {
-        if ($name == '_links') {
+        if ($value === null || $name == '_links') {
             return true;
         } else if ($this->_isRelation($name, 'many')) {
             $relation = $this->_relations[$name];
