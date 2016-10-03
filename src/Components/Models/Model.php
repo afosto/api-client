@@ -6,8 +6,9 @@ use Afosto\ApiClient\Components\Exceptions\ModelException;
 use Afosto\ApiClient\Components\Component;
 use Afosto\ApiClient\Components\ArrayList;
 use Afosto\ApiClient\Components\Helpers\ApiHelper;
+use JsonSerializable;
 
-abstract class Model extends Component {
+abstract class Model extends Component implements JsonSerializable {
 
     /**
      * The list of attributes
@@ -186,6 +187,26 @@ abstract class Model extends Component {
             }
         }
         return $body;
+    }
+
+    /**
+     * Return this object as array a model can easily be serialized to JSON.
+     *
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return $this->getBody();
+    }
+
+    /**
+     * Returns this model as associative array. Alias of getBody()
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->getBody();
     }
 
     /**
