@@ -14,11 +14,5 @@ use Afosto\ApiClient\Components\WebhookTrait;
 class Sale extends BaseSale {
 
     use WebhookTrait;
-
-    public function getAttributes() {
-        return array_merge([
-            'status_id'
-        ], parent::getAttributes());
-    }
     
 }

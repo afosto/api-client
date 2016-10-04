@@ -1,9 +1,8 @@
 <?php
 
-namespace Afosto\ApiClient\Models\_Base\Notifications;
+namespace Afosto\ApiClient\Models\_Base\Attributes;
 
 use Afosto\ApiClient\Components\Models\Model;
-use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -28,24 +27,11 @@ use Afosto\ApiClient\Components\ModelTrait;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @property integer $id
- * @property boolean $is_done
- * @property boolean $is_forced
- * @property boolean $reset
- * @property string $content
- * @property string $notified_at
- * @property string $subject
- * @property string $type
- * @property string $version
- * @property integer $priority
- * 
- * @property Sender $sender
- * @property Reciever $receiver
- * @property Entity $entity
+ * @property int $id
+ * @property string $value
+ *
 **/
-class BaseNotification extends Model {
-
-    use ModelTrait;
+class BaseValue extends Model {
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -54,15 +40,7 @@ class BaseNotification extends Model {
     public function getAttributes() {
         return [
             'id',
-            'is_done',
-            'is_forced',
-            'reset',
-            'content',
-            'notified_at',
-            'subject',
-            'type',
-            'version',
-            'priority',
+            'value',
         ];
     }
     
@@ -72,9 +50,6 @@ class BaseNotification extends Model {
      */
     public function getRelations() {
         return [
-            'sender' => ['Sender', 'one'],
-            'receiver' => ['Reciever', 'one'],
-            'entity' => ['Entity', 'one'],
         ];
     }
 
@@ -84,10 +59,9 @@ class BaseNotification extends Model {
      */
     public function getTypes() {
         return [
-            ['','required'],
-            ['id, priority','integer'],
-            ['is_done, is_forced, reset','boolean'],
-            ['content, notified_at, subject, type, version','string'],
+            ['id, value','required'],
+            ['id','int'],
+            ['value','string'],
         ];
     }
 

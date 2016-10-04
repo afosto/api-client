@@ -31,13 +31,18 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property integer $id
  * @property integer $number
  * @property string $email
- * @property string $name
+ * @property string $first_name
+ * @property string $last_name_prefix
+ * @property string $last_name
  * @property boolean $is_female
  * @property string $created_at
  * @property string $updated_at
  * 
+ * @property Phonenumber[] $phone_numbers
  * @property \Afosto\ApiClient\Models\Addresses\Address $billing_address
  * @property \Afosto\ApiClient\Models\Addresses\Address $shipping_address
+ * @property Card $card
+ * @property \Afosto\ApiClient\Models\EAVs\EAV[] $extra_fields
 **/
 class BaseCustomer extends Model {
 
@@ -52,7 +57,9 @@ class BaseCustomer extends Model {
             'id',
             'number',
             'email',
-            'name',
+            'first_name',
+            'last_name_prefix',
+            'last_name',
             'is_female',
             'created_at',
             'updated_at',
@@ -65,8 +72,11 @@ class BaseCustomer extends Model {
      */
     public function getRelations() {
         return [
+            'phone_numbers' => ['Phonenumber', 'many'],
             'billing_address' => ['Address', 'one'],
             'shipping_address' => ['Address', 'one'],
+            'card' => ['Card', 'one'],
+            'extra_fields' => ['EAV', 'many'],
         ];
     }
 
@@ -76,9 +86,9 @@ class BaseCustomer extends Model {
      */
     public function getTypes() {
         return [
-            ['email, name','required'],
+            ['email, first_name, last_name','required'],
             ['id, number','integer'],
-            ['email, name, created_at, updated_at','string'],
+            ['email, first_name, last_name_prefix, last_name, created_at, updated_at','string'],
             ['is_female','boolean'],
         ];
     }

@@ -3,6 +3,7 @@
 namespace Afosto\ApiClient\Models\_Base\Products;
 
 use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -31,9 +32,11 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $label
  * @property boolean $is_default
  * @property string $url
- *
+ * 
 **/
 class BaseImage extends Model {
+
+    use ModelTrait;
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name

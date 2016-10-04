@@ -3,6 +3,7 @@
 namespace Afosto\ApiClient\Models\_Base\Images;
 
 use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -30,9 +31,11 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property integer $image_id
  * @property integer $size
  * @property string $type
- *
+ * 
 **/
 class BaseImage extends Model {
+
+    use ModelTrait;
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
