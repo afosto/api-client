@@ -3,7 +3,6 @@
 namespace Afosto\ApiClient\Generator;
 
 use Afosto\ApiClient\App;
-use Afosto\ApiClient\Generator\Definition;
 use Symfony\Component\Console\Command\Command;
 
 class Generator extends Command {
@@ -16,7 +15,7 @@ class Generator extends Command {
     /**
      * Target for the generated models
      */
-    const TARGET_PATH = 'models';
+    const TARGET_PATH = 'Models';
     
     /**
      * Sourcedirecotry for the templates
@@ -113,8 +112,8 @@ class Generator extends Command {
         }
 
         foreach ($this->_definitions as $definition) {
-            $dir = strtolower($modelDir . $definition->namespace . '/');
-            $baseDir = strtolower($modelDir .  '_base/' . $definition->namespace . '/');
+            $dir = $modelDir . $definition->namespace . '/';
+            $baseDir = $modelDir .  '_Base/' . $definition->namespace . '/';
             $baseFile = 'Base' . $definition->name . '.php';
             $file = $definition->name . '.php';
             $basePath = $baseDir . $baseFile;

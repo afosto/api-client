@@ -36,7 +36,6 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $city
  * @property string $region
  * @property string $zip_code
- * @property string $phone_number
  *
  * @property \Afosto\ApiClient\Models\Countries\Country $country
 **/
@@ -57,7 +56,6 @@ class BaseAddress extends Model {
             'city',
             'region',
             'zip_code',
-            'phone_number',
         ];
     }
     
@@ -79,7 +77,7 @@ class BaseAddress extends Model {
         return [
             ['name, street, house_number, zip_code, city','required'],
             ['id','integer'],
-            ['name, company, street, house_number, house_number_suffix, city, region, zip_code, phone_number','string'],
+            ['name, company, street, house_number, house_number_suffix, city, region, zip_code','string'],
         ];
     }
 
