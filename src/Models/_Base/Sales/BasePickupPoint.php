@@ -5,14 +5,14 @@ namespace Afosto\ApiClient\Models\_Base\Sales;
 use Afosto\ApiClient\Components\Models\Model;
 
 /**
- * NOTE: Do not overwrite this model, as it is the base class and auto-generated
- * by the generator in the dev folder, based on the SwaggerJSON for the Afosto
+ * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
+ * by the generator in the dev folder, based on the SwaggerJSON for the Afosto 
  * API V2 (https://api.afosto.com/v2).
- *
+ * 
  * @category Class
  * @package  Afosto\ApiClient
  * @author   https://afosto.com
- *
+ * 
  * Copyright 2016 Afosto SaaS BV
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,52 +26,40 @@ use Afosto\ApiClient\Components\Models\Model;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * @property string $spid
+ * @property string $name
+ * @property string $street
+ * @property string $house_number
+ * @property string $house_number_suffix
+ * @property string $city
+ * @property string $zip_code
  *
- * @property integer $id
- * @property string $shipped_at
- * @property string $number
- * @property string $track_trace
- * @property string $cost
- * @property boolean $is_sent
- * @property boolean $is_notified
- * @property boolean $is_backordered
- * @property string $status
- *
- * @property \Afosto\ApiClient\Models\Addresses\Address $address
- * @property PickupPoint $pickup_point
- * @property Delivery $delivery
- * @property \Afosto\ApiClient\Models\ShippingMethods\ShippingMethod $method
- **/
-class BaseShipping extends Model {
+**/
+class BasePickupPoint extends Model {
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
-     * @return array
+     * @return array 
      */
     public function getAttributes() {
         return [
-            'id',
-            'shipped_at',
-            'number',
-            'track_trace',
-            'cost',
-            'is_sent',
-            'is_notified',
-            'is_backordered',
-            'status',
+            'spid',
+            'name',
+            'street',
+            'house_number',
+            'house_number_suffix',
+            'city',
+            'zip_code',
         ];
     }
-
+    
     /**
      * Array with relations
      * @return array
      */
     public function getRelations() {
         return [
-            'address' => ['Address', 'one'],
-            'pickup_point' => ['PickupPoint', 'one'],
-            'delivery' => ['Delivery', 'one'],
-            'method' => ['ShippingMethodRel', 'one'],
         ];
     }
 
@@ -81,10 +69,8 @@ class BaseShipping extends Model {
      */
     public function getTypes() {
         return [
-            ['cost, is_sent, is_notified, is_backordered, status, address, method','required'],
-            ['id','integer'],
-            ['shipped_at, number, track_trace, cost, status','string'],
-            ['is_sent, is_notified, is_backordered','boolean'],
+            ['spid, name, street, zip_code, city, house_number','required'],
+            ['spid, name, street, house_number, house_number_suffix, city, zip_code','string'],
         ];
     }
 

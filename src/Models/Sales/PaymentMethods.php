@@ -5,9 +5,9 @@ namespace Afosto\ApiClient\Models\Sales;
 use Afosto\ApiClient\Models\_Base\Sales\BasePaymentMethods;
 
 /**
- * Use this class for custom methods that extend the default functionality for 
+ * Use this class for custom methods that extend the default functionality for
  * the PaymentMethods
- * 
+ *
  * This object cannot be called directly from the api and has therefore no api
  * operations. It is only used to format and maintain the data.
  */
@@ -18,9 +18,9 @@ class PaymentMethods extends BasePaymentMethods {
      * @return array
      */
     public function getRelations() {
-        return [
+        return array_merge(parent::getRelations(), [
             'method' => ['PaymentMethodRel', 'one'],
-        ];
+        ]);
     }
-    
+
 }
