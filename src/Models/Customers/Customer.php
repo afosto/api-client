@@ -26,6 +26,7 @@ class Customer extends BaseCustomer {
         return array_merge(parent::getRelations(), [
             'billing_address'  => ['//Address', 'one'],
             'shipping_address' => ['//Address', 'one'],
+            'extra_fields' => ['//EAV', 'many'],
         ]);
     }
 

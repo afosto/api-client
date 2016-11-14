@@ -6,17 +6,17 @@ use Afosto\ApiClient\App;
 use Symfony\Component\Console\Command\Command;
 
 class Generator extends Command {
-    
+
     /**
      * The uri for the swagger json
      */
     const SOURCE_URI = '/swagger';
-    
+
     /**
      * Target for the generated models
      */
     const TARGET_PATH = 'Models';
-    
+
     /**
      * Sourcedirecotry for the templates
      */
@@ -27,22 +27,22 @@ class Generator extends Command {
      * @var \Mustache_Engine
      */
     private $_mustache;
-    
+
     /**
      * Current dir
-     * @var string 
+     * @var string
      */
     private $_rootDir;
-    
+
     /**
      * The source
-     * @var string 
+     * @var string
      */
     private $_swaggerSource;
-    
+
     /**
      * Controllermap for api
-     * @var array 
+     * @var array
      */
     private $_paths;
 
@@ -53,7 +53,8 @@ class Generator extends Command {
     private $_definitions;
 
     /**
-     * Constructor, used for Command 
+     * Constructor, used for Command
+     *
      * @param string $name
      */
     public function __construct($name = null) {
@@ -73,9 +74,8 @@ class Generator extends Command {
     /**
      * Called by Command
      */
-    protected function execute() {
+    protected function execute(InputInterface $input, OutputInterface $output) {
         $this->_gatherPaths();
-
         $this->_formatDefinitions();
         $this->_generateModels();
     }
@@ -101,7 +101,7 @@ class Generator extends Command {
         $model = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/model.mustache');
         $apiModel = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/api_model.mustache');
         $link = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/link.mustache');
-        
+
         $baseModel = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/base_model.mustache');
         $baseApiModel = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/base_api_model.mustache');
         $baseLink = file_get_contents($this->_rootDir . '/' . self::TEMPLATE_DIR . '/base_link.mustache');
@@ -113,7 +113,7 @@ class Generator extends Command {
 
         foreach ($this->_definitions as $definition) {
             $dir = $modelDir . $definition->namespace . '/';
-            $baseDir = $modelDir .  '_Base/' . $definition->namespace . '/';
+            $baseDir = $modelDir . '_Base/' . $definition->namespace . '/';
             $baseFile = 'Base' . $definition->name . '.php';
             $file = $definition->name . '.php';
             $basePath = $baseDir . $baseFile;
@@ -122,7 +122,7 @@ class Generator extends Command {
             if (!is_dir($dir)) {
                 mkdir($dir, 0777, true);
             }
-            
+
             if (!is_dir($baseDir)) {
                 mkdir($baseDir, 0777, true);
             }
@@ -130,7 +130,7 @@ class Generator extends Command {
             if (file_exists($path)) {
                 unlink($path);
             }
-            
+
             if (file_exists($basePath)) {
                 unlink($basePath);
             }
@@ -157,7 +157,7 @@ class Generator extends Command {
      * Build the controllermap
      */
     private function _gatherPaths() {
-        $this->_paths = array();
+        $this->_paths = [];
         foreach ($this->_swaggerSource['paths'] as $path => $pathData) {
             $path = current(explode('/', substr($path, 1)));
             $this->_paths[] = \Doctrine\Common\Inflector\Inflector::singularize($path);
