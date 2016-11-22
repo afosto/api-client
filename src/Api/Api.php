@@ -95,16 +95,19 @@ class Api extends Component {
     protected function beforeRequest($queryType) {
         //Reset the options
         $this->_owner->beforeRequest();
-        if ($queryType == ApiHelper::SAVE || ApiHelper::UPDATE) {
+        if ($queryType == ApiHelper::SAVE || $queryType == ApiHelper::UPDATE) {
             $this->_setBody($this->_owner->getBody());
+        } else if ($queryType == ApiHelper::UPLOAD) {
+            $this->_setMultiPart($this->_owner->getMultiPart());
+
         }
         if (App::getInstance()->getRateLimit()->hasExceeded()) {
             throw new RateLimitException('Out of limits');
         }
         if ($queryType == ApiHelper::PAGE) {
             $this->_addHeaders([
-                'page' => $this->_owner->getPagination()->page,
-                'pagesize' => $this->_owner->getPagination()->pageSize
+                'page'     => $this->_owner->getPagination()->page,
+                'pagesize' => $this->_owner->getPagination()->pageSize,
             ]);
         }
         $this->_addLog();
@@ -126,13 +129,21 @@ class Api extends Component {
         $this->_options = [];
         $this->_updateLog();
     }
-    
+
     /**
      * Set the body for the request
      * @param array $body
      */
     private function _setBody($body) {
         $this->_options['body'] = json_encode($body);
+    }
+
+    /**
+     * Returns the multipart data
+     * @param $multiPart
+     */
+    private function _setMultiPart($multiPart) {
+        $this->_options['multipart'] = $multiPart;
     }
 
     /**
@@ -147,7 +158,7 @@ class Api extends Component {
             $this->_options = array_merge($this->_options['headers'], $headers);
         }
     }
-    
+
     /**
      * Return the uri for this query type
      * @param string $queryType
@@ -158,7 +169,8 @@ class Api extends Component {
         switch ($queryType) {
             case ApiHelper::PAGE:
             case ApiHelper::SAVE:
-            case ApiHelper::UPDATE;
+            case ApiHelper::UPDATE:
+            case ApiHelper::UPLOAD:
                 $path = null;
                 break;
             case ApiHelper::COUNT:
@@ -206,7 +218,7 @@ class Api extends Component {
         //Keep only the last three requests in the log
         self::$_log = array_slice(self::$_log, -3);
     }
-    
+
     /**
      * Updates the last log
      */
