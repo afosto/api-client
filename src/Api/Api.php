@@ -95,12 +95,8 @@ class Api extends Component {
     protected function beforeRequest($queryType) {
         //Reset the options
         $this->_owner->beforeRequest();
-        if ($queryType == ApiHelper::SAVE || $queryType == ApiHelper::UPDATE) {
-            $this->_setBody($this->_owner->getBody());
-        } else if ($queryType == ApiHelper::UPLOAD) {
-            $this->_setMultiPart($this->_owner->getMultiPart());
+        $this->_setBody($queryType);
 
-        }
         if (App::getInstance()->getRateLimit()->hasExceeded()) {
             throw new RateLimitException('Out of limits');
         }
@@ -132,18 +128,15 @@ class Api extends Component {
 
     /**
      * Set the body for the request
-     * @param array $body
+     *
+     * @param $queryType
      */
-    private function _setBody($body) {
-        $this->_options['body'] = json_encode($body);
-    }
-
-    /**
-     * Returns the multipart data
-     * @param $multiPart
-     */
-    private function _setMultiPart($multiPart) {
-        $this->_options['multipart'] = $multiPart;
+    private function _setBody($queryType) {
+        if ($queryType == ApiHelper::SAVE || $queryType == ApiHelper::UPDATE) {
+            $this->_options['body'] = json_encode($this->_owner->getBody());
+        } else if ($queryType == ApiHelper::UPLOAD) {
+            $this->_options['multipart'] = $this->_owner->getMultiPart();
+        }
     }
 
     /**

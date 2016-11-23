@@ -24,13 +24,11 @@ class Image extends BaseImage {
         return array_merge(parent::getAttributes(), [
             'contents',
             'filename',
-
         ]);
     }
 
     /**
      * The specific route for the image upload
-     *
      * @return string
      */
     public function getRoute() {
@@ -39,16 +37,15 @@ class Image extends BaseImage {
 
     /**
      * Send the file
+     * @return $this
      */
     public function upload() {
         $this->setAttributes($this->api->request(ApiHelper::UPLOAD));
-
         return $this;
     }
 
     /**
      * Return the multipart data
-     *
      * @return array
      */
     public function getMultiPart() {
