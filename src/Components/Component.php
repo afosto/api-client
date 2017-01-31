@@ -38,7 +38,6 @@ abstract class Component {
             //Look for functions
             $this->$name = $value;
         }
-        throw new ModelException('[' . $name . '] not defined in [' . $this->getName() .']');
     }
     
     /**
