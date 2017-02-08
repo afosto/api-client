@@ -1,6 +1,6 @@
 <?php
 
-namespace Afosto\ApiClient\Models\_Base\Products;
+namespace Afosto\ApiClient\Models\_Base\InternalShipments;
 
 use Afosto\ApiClient\Components\Models\Model;
 
@@ -28,17 +28,16 @@ use Afosto\ApiClient\Components\Models\Model;
  * limitations under the License.
  * 
  * @property integer $id
- * @property string $ean
- * @property string $sku
- * @property string $suffix
- * @property string $created_at
- * @property string $updated_at
+ * @property string $started_at
+ * @property string $expected_at
  *
- * @property Inventory $inventory
- * @property Price[] $prices
- * @property Option[] $options
+ * @property \Afosto\ApiClient\Models\Warehouses\Warehouse $source
+ * @property \Afosto\ApiClient\Models\Warehouses\Warehouse $mediator
+ * @property \Afosto\ApiClient\Models\Warehouses\Warehouse $target
+ * @property \Afosto\ApiClient\Models\Customers\Customer $customer
+ * @property \Afosto\ApiClient\Models\InternalShipmentItems\InternalShipmentItem[] $items
 **/
-class BaseItem extends Model {
+class BaseInternalShipment extends Model {
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -47,11 +46,8 @@ class BaseItem extends Model {
     public function getAttributes() {
         return [
             'id',
-            'ean',
-            'sku',
-            'suffix',
-            'created_at',
-            'updated_at',
+            'started_at',
+            'expected_at',
         ];
     }
     
@@ -61,9 +57,11 @@ class BaseItem extends Model {
      */
     public function getRelations() {
         return [
-            'inventory' => ['Inventory', 'one'],
-            'prices' => ['Price', 'many'],
-            'options' => ['Option', 'many'],
+            'source' => ['WarehouseRel', 'one'],
+            'mediator' => ['WarehouseRel', 'one'],
+            'target' => ['WarehouseRel', 'one'],
+            'customer' => ['CustomerRel', 'one'],
+            'items' => ['InternalShipmentItem', 'many'],
         ];
     }
 
@@ -73,9 +71,9 @@ class BaseItem extends Model {
      */
     public function getTypes() {
         return [
-            ['ean, created_at, updated_at, inventory, prices, options, ','required'],
+            ['id, source, mediator, target, ','required'],
             ['id','integer'],
-            ['ean, sku, suffix, created_at, updated_at','string'],
+            ['started_at, expected_at','string'],
         ];
     }
 

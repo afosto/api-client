@@ -1,8 +1,9 @@
 <?php
 
-namespace Afosto\ApiClient\Models\_Base\Products;
+namespace Afosto\ApiClient\Models\_Base\Coupons;
 
 use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -28,17 +29,20 @@ use Afosto\ApiClient\Components\Models\Model;
  * limitations under the License.
  * 
  * @property integer $id
- * @property string $ean
- * @property string $sku
- * @property string $suffix
- * @property string $created_at
- * @property string $updated_at
- *
- * @property Inventory $inventory
- * @property Price[] $prices
- * @property Option[] $options
+ * @property boolean $is_unlimited
+ * @property integer $exchange_rate
+ * @property number $exchange_value
+ * @property integer $available
+ * @property integer $used
+ * @property string $expires_at
+ * @property string $code
+ * @property integer $label
+ * 
+ * @property \Afosto\ApiClient\Models\Customers\Customer $customer
 **/
-class BaseItem extends Model {
+class BaseCoupon extends Model {
+
+    use ModelTrait;
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -47,11 +51,14 @@ class BaseItem extends Model {
     public function getAttributes() {
         return [
             'id',
-            'ean',
-            'sku',
-            'suffix',
-            'created_at',
-            'updated_at',
+            'is_unlimited',
+            'exchange_rate',
+            'exchange_value',
+            'available',
+            'used',
+            'expires_at',
+            'code',
+            'label',
         ];
     }
     
@@ -61,9 +68,7 @@ class BaseItem extends Model {
      */
     public function getRelations() {
         return [
-            'inventory' => ['Inventory', 'one'],
-            'prices' => ['Price', 'many'],
-            'options' => ['Option', 'many'],
+            'customer' => ['CustomerRel', 'one'],
         ];
     }
 
@@ -73,9 +78,11 @@ class BaseItem extends Model {
      */
     public function getTypes() {
         return [
-            ['ean, created_at, updated_at, inventory, prices, options, ','required'],
-            ['id','integer'],
-            ['ean, sku, suffix, created_at, updated_at','string'],
+            ['id, code, ','required'],
+            ['id, exchange_rate, available, used, label','integer'],
+            ['is_unlimited','boolean'],
+            ['exchange_value','number'],
+            ['expires_at, code','string'],
         ];
     }
 

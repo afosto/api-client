@@ -74,7 +74,7 @@ class Generator extends Command {
     /**
      * Called by Command
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute($input, $output) {
         $this->_gatherPaths();
         $this->_formatDefinitions();
         $this->_generateModels();
@@ -112,28 +112,19 @@ class Generator extends Command {
         }
 
         foreach ($this->_definitions as $definition) {
-            $dir = $modelDir . $definition->namespace . '/';
-            $baseDir = $modelDir . '_Base/' . $definition->namespace . '/';
-            $baseFile = 'Base' . $definition->name . '.php';
+
+            //Model files
+            $filePath = $definition->namespace . '/';
+            $dir = $modelDir . $filePath;
             $file = $definition->name . '.php';
-            $basePath = $baseDir . $baseFile;
             $path = $dir . $file;
 
-            if (!is_dir($dir)) {
-                mkdir($dir, 0777, true);
-            }
+            //Base model files
+            $baseFilePath = '_Base/' . $definition->namespace . '/';
+            $baseDir = $modelDir . $baseFilePath;
+            $baseFile = 'Base' . $definition->name . '.php';
+            $basePath = $baseDir . $baseFile;
 
-            if (!is_dir($baseDir)) {
-                mkdir($baseDir, 0777, true);
-            }
-
-            if (file_exists($path)) {
-                unlink($path);
-            }
-
-            if (file_exists($basePath)) {
-                unlink($basePath);
-            }
 
             if (in_array(strtolower($definition->name), $this->_paths)) {
                 //ApiModel
@@ -148,8 +139,34 @@ class Generator extends Command {
                 $content = $this->_mustache->render($model, $definition->getArray());
                 $baseContent = $this->_mustache->render($baseModel, $definition->getArray());
             }
-            file_put_contents($path, $content);
-            file_put_contents($basePath, $baseContent);
+
+            $currentFile = null;
+            @$currentFile = file_get_contents(realpath(dirname(__FILE__) . '/../Models') . '/' . $filePath . $file);
+
+            $currentBaseFile = null;
+            @$currentBaseFile = file_get_contents(realpath(dirname(__FILE__) . '/../Models') . '/' . $baseFilePath . $baseFile);
+
+            if ($content !== $currentFile) {
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0777, true);
+                }
+
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+
+                file_put_contents($path, $content);
+            }
+
+            if ($baseContent !== $currentBaseFile) {
+                if (!is_dir($baseDir)) {
+                    mkdir($baseDir, 0777, true);
+                }
+                if (file_exists($basePath)) {
+                    unlink($basePath);
+                }
+                file_put_contents($basePath, $baseContent);
+            }
         }
     }
 
