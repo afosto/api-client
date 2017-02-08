@@ -1,6 +1,6 @@
 <?php
 
-namespace Afosto\ApiClient\Models\_Base\Products;
+namespace Afosto\ApiClient\Models\_Base\InternalShipmentItems;
 
 use Afosto\ApiClient\Components\Models\Model;
 
@@ -28,17 +28,11 @@ use Afosto\ApiClient\Components\Models\Model;
  * limitations under the License.
  * 
  * @property integer $id
- * @property string $ean
- * @property string $sku
- * @property string $suffix
- * @property string $created_at
- * @property string $updated_at
+ * @property integer $amount
  *
- * @property Inventory $inventory
- * @property Price[] $prices
- * @property Option[] $options
+ * @property \Afosto\ApiClient\Models\Products\Product $product
 **/
-class BaseItem extends Model {
+class BaseInternalShipmentItem extends Model {
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -47,11 +41,7 @@ class BaseItem extends Model {
     public function getAttributes() {
         return [
             'id',
-            'ean',
-            'sku',
-            'suffix',
-            'created_at',
-            'updated_at',
+            'amount',
         ];
     }
     
@@ -61,9 +51,7 @@ class BaseItem extends Model {
      */
     public function getRelations() {
         return [
-            'inventory' => ['Inventory', 'one'],
-            'prices' => ['Price', 'many'],
-            'options' => ['Option', 'many'],
+            'product' => ['ProductRel', 'one'],
         ];
     }
 
@@ -73,9 +61,8 @@ class BaseItem extends Model {
      */
     public function getTypes() {
         return [
-            ['ean, created_at, updated_at, inventory, prices, options, ','required'],
-            ['id','integer'],
-            ['ean, sku, suffix, created_at, updated_at','string'],
+            ['id, amount, product','required'],
+            ['id, amount','integer'],
         ];
     }
 
