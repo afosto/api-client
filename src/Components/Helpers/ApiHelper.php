@@ -58,6 +58,11 @@ class ApiHelper {
     const DELETE = 'delete';
 
     /**
+     * Used to post multipart forms (files)
+     */
+    const UPLOAD = 'multipart';
+
+    /**
      * Returns assoc array from object
      * @param $object
      * @return array
@@ -100,6 +105,7 @@ class ApiHelper {
                 $method = 'GET';
                 break;
             case self::SAVE:
+            case self::UPLOAD:
                 $method = 'POST';
                 break;
             case self::UPDATE:
