@@ -33,7 +33,7 @@ use Afosto\ApiClient\Components\ModelTrait;
 {{/attributes}}
  * 
 {{#relations}}
- * @property {{#needsNamespace}}\Afosto\ApiClient\Models\{{namespace}}\{{/needsNamespace}}{{propertyClass}}{{#array}}[]{{/array}} ${{key}}
+ * @property \Afosto\ApiClient\Models\{{namespace}}\{{propertyClass}}{{#array}}[]{{/array}} ${{key}}
 {{/relations}}
 **/
 class Base{{name}} extends Model {
