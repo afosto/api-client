@@ -43,7 +43,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property number $discount_total_gross
  *
  * @property \Afosto\ApiClient\Models\Products\Product $product
- * @property Mutation $mutation
+ * @property \Afosto\ApiClient\Models\Sales\Mutation $mutation
 **/
 class BaseItem extends Model {
 

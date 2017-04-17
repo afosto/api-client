@@ -36,7 +36,7 @@ use Afosto\ApiClient\Components\ModelTrait;
  * 
  * @property \Afosto\ApiClient\Models\Menus\Menu $menu
  * @property \Afosto\ApiClient\Models\Collections\Collection[] $categories
- * @property MenuItem[] $children
+ * @property \Afosto\ApiClient\Models\MenuItems\MenuItem[] $children
 **/
 class BaseMenuItem extends Model {
 

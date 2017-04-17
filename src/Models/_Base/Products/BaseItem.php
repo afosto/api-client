@@ -30,12 +30,13 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property integer $id
  * @property string $ean
  * @property string $sku
+ * @property string $suffix
  * @property string $created_at
  * @property string $updated_at
  *
- * @property Inventory $inventory
- * @property Price[] $prices
- * @property Option[] $options
+ * @property \Afosto\ApiClient\Models\Products\Inventory $inventory
+ * @property \Afosto\ApiClient\Models\Products\Price[] $prices
+ * @property \Afosto\ApiClient\Models\Products\Option[] $options
 **/
 class BaseItem extends Model {
 
@@ -48,6 +49,7 @@ class BaseItem extends Model {
             'id',
             'ean',
             'sku',
+            'suffix',
             'created_at',
             'updated_at',
         ];
@@ -73,7 +75,7 @@ class BaseItem extends Model {
         return [
             ['ean, created_at, updated_at, inventory, prices, options, ','required'],
             ['id','integer'],
-            ['ean, sku, created_at, updated_at','string'],
+            ['ean, sku, suffix, created_at, updated_at','string'],
         ];
     }
 

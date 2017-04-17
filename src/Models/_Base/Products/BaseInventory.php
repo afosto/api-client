@@ -29,7 +29,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * 
  * @property integer $total
  *
- * @property Warehouse[] $warehouses
+ * @property \Afosto\ApiClient\Models\Products\Warehouse[] $warehouses
 **/
 class BaseInventory extends Model {
 

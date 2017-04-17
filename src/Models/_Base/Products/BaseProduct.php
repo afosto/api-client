@@ -37,12 +37,12 @@ use Afosto\ApiClient\Components\ModelTrait;
  * 
  * @property \Afosto\ApiClient\Models\Ledgers\Ledger $ledger
  * @property \Afosto\ApiClient\Models\Suppliers\Supplier $supplier
- * @property Descriptor[] $descriptors
- * @property Item[] $items
- * @property Specification[] $specifications
- * @property Image[] $images
+ * @property \Afosto\ApiClient\Models\Products\Descriptor[] $descriptors
+ * @property \Afosto\ApiClient\Models\Products\Item[] $items
+ * @property \Afosto\ApiClient\Models\Products\Specification[] $specifications
+ * @property \Afosto\ApiClient\Models\Products\Image[] $images
  * @property \Afosto\ApiClient\Models\Collections\Collection[] $collections
- * @property Setting[] $settings
+ * @property \Afosto\ApiClient\Models\Products\Setting[] $settings
 **/
 class BaseProduct extends Model {
 

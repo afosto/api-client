@@ -39,9 +39,9 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $version
  * @property integer $priority
  * 
- * @property Sender $sender
- * @property Reciever $receiver
- * @property Entity $entity
+ * @property \Afosto\ApiClient\Models\Notifications\Sender $sender
+ * @property \Afosto\ApiClient\Models\Notifications\Reciever $receiver
+ * @property \Afosto\ApiClient\Models\Notifications\Entity $entity
 **/
 class BaseNotification extends Model {
 

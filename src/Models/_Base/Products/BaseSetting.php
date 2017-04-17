@@ -31,7 +31,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $slug
  *
  * @property \Afosto\ApiClient\Models\ExternalServices\ExternalService $external_service
- * @property MenuItem[] $menu_items
+ * @property \Afosto\ApiClient\Models\Products\MenuItem[] $menu_items
 **/
 class BaseSetting extends Model {
 

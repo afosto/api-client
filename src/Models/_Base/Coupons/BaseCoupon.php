@@ -1,8 +1,9 @@
 <?php
 
-namespace Afosto\ApiClient\Models\_Base\Sales;
+namespace Afosto\ApiClient\Models\_Base\Coupons;
 
 use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\ModelTrait;
 
 /**
  * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
@@ -28,18 +29,22 @@ use Afosto\ApiClient\Components\Models\Model;
  * limitations under the License.
  * 
  * @property integer $id
- * @property string $number
- * @property string $billed_at
- * @property string $payment_date
- * @property boolean $is_notified
- * @property integer $status_id
- * @property string $status
- * @property number $total_paid
- *
- * @property \Afosto\ApiClient\Models\Sales\PaymentMethods[] $methods
- * @property \Afosto\ApiClient\Models\Addresses\Address $address
+ * @property boolean $is_unlimited
+ * @property integer $exchange_rate
+ * @property number $exchange_value
+ * @property integer $available
+ * @property integer $used
+ * @property string $expires_at
+ * @property boolean $is_applicable_to_sale
+ * @property boolean $is_verification_required
+ * @property string $code
+ * @property integer $label
+ * 
+ * @property \Afosto\ApiClient\Models\Customers\Customer $customer
 **/
-class BaseBilling extends Model {
+class BaseCoupon extends Model {
+
+    use ModelTrait;
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
@@ -48,13 +53,16 @@ class BaseBilling extends Model {
     public function getAttributes() {
         return [
             'id',
-            'number',
-            'billed_at',
-            'payment_date',
-            'is_notified',
-            'status_id',
-            'status',
-            'total_paid',
+            'is_unlimited',
+            'exchange_rate',
+            'exchange_value',
+            'available',
+            'used',
+            'expires_at',
+            'is_applicable_to_sale',
+            'is_verification_required',
+            'code',
+            'label',
         ];
     }
     
@@ -64,8 +72,7 @@ class BaseBilling extends Model {
      */
     public function getRelations() {
         return [
-            'methods' => ['PaymentMethods', 'many'],
-            'address' => ['Address', 'one'],
+            'customer' => ['CustomerRel', 'one'],
         ];
     }
 
@@ -75,11 +82,11 @@ class BaseBilling extends Model {
      */
     public function getTypes() {
         return [
-            ['billed_at, payment_date, is_notified, status, total_paid, address','required'],
-            ['id, status_id','integer'],
-            ['number, billed_at, payment_date, status','string'],
-            ['is_notified','boolean'],
-            ['total_paid','number'],
+            ['id, code, ','required'],
+            ['id, exchange_rate, available, used, label','integer'],
+            ['is_unlimited, is_applicable_to_sale, is_verification_required','boolean'],
+            ['exchange_value','number'],
+            ['expires_at, code','string'],
         ];
     }
 

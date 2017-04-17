@@ -47,9 +47,9 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property array $sale_notes
  * 
  * @property \Afosto\ApiClient\Models\ExternalServices\ExternalService $external_service
- * @property Billing $billing
- * @property Shipping[] $shipping
- * @property Item[] $items
+ * @property \Afosto\ApiClient\Models\Sales\Billing $billing
+ * @property \Afosto\ApiClient\Models\Sales\Shipping[] $shipping
+ * @property \Afosto\ApiClient\Models\Sales\Item[] $items
  * @property \Afosto\ApiClient\Models\Customers\Customer $customer
 **/
 class BaseSale extends Model {

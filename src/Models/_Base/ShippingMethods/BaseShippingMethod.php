@@ -33,6 +33,8 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $code
  * @property number $cost
  * @property number $cost_gross
+ * @property integer $range_start
+ * @property integer $range_end
  * 
  * @property \Afosto\ApiClient\Models\Countries\Country $country
  * @property \Afosto\ApiClient\Models\ExternalServices\ExternalService $external_service
@@ -53,6 +55,8 @@ class BaseShippingMethod extends Model {
             'code',
             'cost',
             'cost_gross',
+            'range_start',
+            'range_end',
         ];
     }
     
@@ -75,7 +79,7 @@ class BaseShippingMethod extends Model {
     public function getTypes() {
         return [
             ['','required'],
-            ['id','integer'],
+            ['id, range_start, range_end','integer'],
             ['name, code','string'],
             ['cost, cost_gross','number'],
         ];

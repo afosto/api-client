@@ -29,7 +29,10 @@ use Afosto\ApiClient\Components\Models\Model;
  * 
  * @property string $code
  * @property boolean $notify
+ * @property string $tracking_url
+ * @property string $label_url
  *
+ * @property \Afosto\ApiClient\Models\Warehouses\Warehouse[] $warehouses
 **/
 class BaseTrace extends Model {
 
@@ -41,6 +44,8 @@ class BaseTrace extends Model {
         return [
             'code',
             'notify',
+            'tracking_url',
+            'label_url',
         ];
     }
     
@@ -50,6 +55,7 @@ class BaseTrace extends Model {
      */
     public function getRelations() {
         return [
+            'warehouses' => ['WarehouseRel', 'many'],
         ];
     }
 
@@ -60,7 +66,7 @@ class BaseTrace extends Model {
     public function getTypes() {
         return [
             ['code, notify','required'],
-            ['code','string'],
+            ['code, tracking_url, label_url','string'],
             ['notify','boolean'],
         ];
     }

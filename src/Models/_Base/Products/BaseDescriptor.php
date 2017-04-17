@@ -32,7 +32,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $description
  *
  * @property \Afosto\ApiClient\Models\MetaGroups\MetaGroup $meta_group
- * @property Seo $seo
+ * @property \Afosto\ApiClient\Models\Products\Seo $seo
 **/
 class BaseDescriptor extends Model {
 

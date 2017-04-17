@@ -45,7 +45,7 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property \Afosto\ApiClient\Models\Modules\Module $module
  * @property \Afosto\ApiClient\Models\PriceGroups\PriceGroup $price_group
  * @property \Afosto\ApiClient\Models\MetaGroups\MetaGroup $meta_group
- * @property Settings $settings
+ * @property \Afosto\ApiClient\Models\ExternalServices\Settings $settings
 **/
 class BaseExternalService extends Model {
 

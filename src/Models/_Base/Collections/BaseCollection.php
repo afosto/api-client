@@ -35,7 +35,7 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $created_at
  * @property string $updated_at
  * 
- * @property Collection $parent
+ * @property \Afosto\ApiClient\Models\Collections\Collection $parent
 **/
 class BaseCollection extends Model {
 

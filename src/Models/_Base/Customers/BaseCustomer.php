@@ -38,10 +38,10 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property string $created_at
  * @property string $updated_at
  * 
- * @property Phonenumber[] $phone_numbers
+ * @property \Afosto\ApiClient\Models\Customers\Phonenumber[] $phone_numbers
  * @property \Afosto\ApiClient\Models\Addresses\Address $billing_address
  * @property \Afosto\ApiClient\Models\Addresses\Address $shipping_address
- * @property Card $card
+ * @property \Afosto\ApiClient\Models\Customers\Card $card
  * @property \Afosto\ApiClient\Models\EAVs\EAV[] $extra_fields
 **/
 class BaseCustomer extends Model {

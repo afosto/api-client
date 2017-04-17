@@ -27,7 +27,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @property int $id
+ * @property integer $id
  * @property string $value
  *
 **/
@@ -60,7 +60,7 @@ class BaseValue extends Model {
     public function getTypes() {
         return [
             ['id, value','required'],
-            ['id','int'],
+            ['id','integer'],
             ['value','string'],
         ];
     }

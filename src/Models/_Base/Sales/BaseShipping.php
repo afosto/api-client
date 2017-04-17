@@ -5,14 +5,14 @@ namespace Afosto\ApiClient\Models\_Base\Sales;
 use Afosto\ApiClient\Components\Models\Model;
 
 /**
- * NOTE: Do not overwrite this model, as it is the base class and auto-generated
- * by the generator in the dev folder, based on the SwaggerJSON for the Afosto
+ * NOTE: Do not overwrite this model, as it is the base class and auto-generated 
+ * by the generator in the dev folder, based on the SwaggerJSON for the Afosto 
  * API V2 (https://api.afosto.com/v2).
- *
+ * 
  * @category Class
  * @package  Afosto\ApiClient
  * @author   https://afosto.com
- *
+ * 
  * Copyright 2016 Afosto SaaS BV
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
+ * 
  * @property integer $id
  * @property string $shipped_at
  * @property string $number
@@ -38,15 +38,15 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $status
  *
  * @property \Afosto\ApiClient\Models\Addresses\Address $address
- * @property PickupPoint $pickup_point
- * @property Delivery $delivery
+ * @property \Afosto\ApiClient\Models\Sales\PickupPoint $pickup_point
+ * @property \Afosto\ApiClient\Models\Sales\Delivery $delivery
  * @property \Afosto\ApiClient\Models\ShippingMethods\ShippingMethod $method
- **/
+**/
 class BaseShipping extends Model {
 
     /**
      * Array of attributes where the key is the local name, and the value is the original name
-     * @return array
+     * @return array 
      */
     public function getAttributes() {
         return [
@@ -61,7 +61,7 @@ class BaseShipping extends Model {
             'status',
         ];
     }
-
+    
     /**
      * Array with relations
      * @return array

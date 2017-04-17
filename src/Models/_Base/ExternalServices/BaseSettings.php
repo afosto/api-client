@@ -27,13 +27,14 @@ use Afosto\ApiClient\Components\Models\Model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
+ * @property boolean $is_backorder_allowed
  * @property integer $order_number
  * @property integer $billing_number
  * @property string $print_type
  * @property string $logo
  * @property integer $terminal_id
  *
- * @property SaleSettings $sale
+ * @property \Afosto\ApiClient\Models\ExternalServices\SaleSettings $sale
 **/
 class BaseSettings extends Model {
 
@@ -43,6 +44,7 @@ class BaseSettings extends Model {
      */
     public function getAttributes() {
         return [
+            'is_backorder_allowed',
             'order_number',
             'billing_number',
             'print_type',
@@ -68,6 +70,7 @@ class BaseSettings extends Model {
     public function getTypes() {
         return [
             ['','required'],
+            ['is_backorder_allowed','boolean'],
             ['order_number, billing_number, terminal_id','integer'],
             ['print_type, logo','string'],
         ];

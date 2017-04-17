@@ -30,7 +30,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property integer $id
  * @property string $key
  *
- * @property Value[] $options
+ * @property \Afosto\ApiClient\Models\Attributes\Value[] $options
 **/
 class BaseAttribute extends Model {
 
