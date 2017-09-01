@@ -2,17 +2,16 @@
 
 namespace Afosto\ApiClient;
 
-use League\OAuth2\Client\Token\AccessToken;
-use \GuzzleHttp\Client;
-use Afosto\ApiClient\Api\RateLimit;
 use Afosto\ApiClient\Api\Provider;
-use Afosto\ApiClient\Components\Storage\AbstractStorage;
+use Afosto\ApiClient\Api\RateLimit;
 use Afosto\ApiClient\Components\Exceptions\ApiException;
 use Afosto\ApiClient\Components\Exceptions\LoginException;
 use Afosto\ApiClient\Components\Exceptions\WebhookException;
-use Afosto\ApiClient\Components\ErrorHandler;
 use Afosto\ApiClient\Components\Helpers\ApiHelper;
-use Whoops\Run as Whoops;
+use Afosto\ApiClient\Components\Models\Model;
+use Afosto\ApiClient\Components\Storage\AbstractStorage;
+use GuzzleHttp\Client;
+use League\OAuth2\Client\Token\AccessToken;
 
 class App {
 
@@ -90,9 +89,6 @@ class App {
         $this->_clientId = $clientId;
         $this->_clientSecret = $clientSecret;
 
-        if (class_exists(Whoops::class)) {
-            ErrorHandler::register();
-        }
         //Set the accessToken from the cache if it is available
         if ($this->storage->get('token') !== false) {
             $this->_accessToken = $this->storage->get('token');
@@ -170,7 +166,7 @@ class App {
     }
 
     /**
-     * Use this function to set the accessToken based on the authorization code 
+     * Use this function to set the accessToken based on the authorization code
      * that is received from Afosto when the redirectUrl is called
      * @param $authorization_code
      * @throws LoginException
@@ -236,7 +232,7 @@ class App {
         }
         return $this->_rateLimit;
     }
-    
+
     /**
      * Returns the accessToken
      * @return string
