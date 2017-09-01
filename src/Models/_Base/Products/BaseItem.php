@@ -31,6 +31,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $ean
  * @property string $sku
  * @property string $suffix
+ * @property number $cost
  * @property string $created_at
  * @property string $updated_at
  *
@@ -50,6 +51,7 @@ class BaseItem extends Model {
             'ean',
             'sku',
             'suffix',
+            'cost',
             'created_at',
             'updated_at',
         ];
@@ -76,6 +78,7 @@ class BaseItem extends Model {
             ['ean, created_at, updated_at, inventory, prices, options, ','required'],
             ['id','integer'],
             ['ean, sku, suffix, created_at, updated_at','string'],
+            ['cost','number'],
         ];
     }
 

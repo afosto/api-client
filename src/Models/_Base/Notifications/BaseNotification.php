@@ -31,7 +31,6 @@ use Afosto\ApiClient\Components\ModelTrait;
  * @property integer $id
  * @property boolean $is_done
  * @property boolean $is_forced
- * @property boolean $reset
  * @property string $content
  * @property string $notified_at
  * @property string $subject
@@ -56,7 +55,6 @@ class BaseNotification extends Model {
             'id',
             'is_done',
             'is_forced',
-            'reset',
             'content',
             'notified_at',
             'subject',
@@ -86,7 +84,7 @@ class BaseNotification extends Model {
         return [
             ['','required'],
             ['id, priority','integer'],
-            ['is_done, is_forced, reset','boolean'],
+            ['is_done, is_forced','boolean'],
             ['content, notified_at, subject, type, version','string'],
         ];
     }

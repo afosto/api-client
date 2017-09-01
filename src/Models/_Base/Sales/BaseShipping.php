@@ -31,6 +31,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $shipped_at
  * @property string $number
  * @property string $track_trace
+ * @property string $label_url
  * @property string $cost
  * @property boolean $is_sent
  * @property boolean $is_notified
@@ -54,6 +55,7 @@ class BaseShipping extends Model {
             'shipped_at',
             'number',
             'track_trace',
+            'label_url',
             'cost',
             'is_sent',
             'is_notified',
@@ -83,7 +85,7 @@ class BaseShipping extends Model {
         return [
             ['cost, is_sent, is_notified, is_backordered, status, address, method','required'],
             ['id','integer'],
-            ['shipped_at, number, track_trace, cost, status','string'],
+            ['shipped_at, number, track_trace, label_url, cost, status','string'],
             ['is_sent, is_notified, is_backordered','boolean'],
         ];
     }
