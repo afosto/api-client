@@ -11,8 +11,8 @@ namespace Afosto\ApiClient;
 
 use Afosto\ApiClient\Components\Storage\SessionStorage;
 
-require_once(dirname(__FILE__) . '/vendor/autoload.php');
-require_once(dirname(__FILE__) . '/config.php');
+require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/config.php');
 
 $cache = new SessionStorage();
 App::run($cache, CLIENT_ID, CLIENT_SECRET);
