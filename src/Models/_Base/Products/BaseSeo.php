@@ -31,6 +31,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * @property string $title
  * @property string $description
  * @property string $keywords
+ * @property string $robots
  *
 **/
 class BaseSeo extends Model {
@@ -45,6 +46,7 @@ class BaseSeo extends Model {
             'title',
             'description',
             'keywords',
+            'robots
         ];
     }
     
@@ -65,7 +67,7 @@ class BaseSeo extends Model {
         return [
             ['','required'],
             ['id','integer'],
-            ['title, description, keywords','string'],
+            ['title, description, keywords, robots','string'],            
         ];
     }
 
