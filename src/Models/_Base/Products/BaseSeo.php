@@ -46,7 +46,7 @@ class BaseSeo extends Model {
             'title',
             'description',
             'keywords',
-            'robots
+            'robots'
         ];
     }
     
