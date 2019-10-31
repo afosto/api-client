@@ -2,6 +2,7 @@
 
 namespace Afosto\ApiClient\Models\Ledgers;
 
+use Afosto\ApiClient\Components\WebhookTrait;
 use Afosto\ApiClient\Models\_Base\Ledgers\BaseLedger;
 
 /**
@@ -11,5 +12,7 @@ use Afosto\ApiClient\Models\_Base\Ledgers\BaseLedger;
  * This class can interact with api, through methods like find and save.
  */
 class Ledger extends BaseLedger {
+
+    use WebhookTrait;
     
 }
