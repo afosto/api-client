@@ -29,6 +29,7 @@ use Afosto\ApiClient\Components\Models\Model;
  * 
  * @property integer $id
  * @property string $name
+ * @property string $sku
  * @property integer $amount_ordered
  * @property integer $amount_invoiced
  * @property number $tax_rate
@@ -53,7 +54,8 @@ class BaseItem extends Model {
      */
     public function getAttributes() {
         return [
-            'id',
+            'id', 
+            'sku',
             'name',
             'amount_ordered',
             'amount_invoiced',
